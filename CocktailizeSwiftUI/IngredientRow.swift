@@ -8,42 +8,51 @@
 
 import SwiftUI
 
+struct SelectedIngredientsRow: View {
+    @EnvironmentObject var userData: UserData
+    
+    var body: some View {
+        IngredientRow(items: userData.selectedIngredients, isRecentIngredientType: false)
+    }
+}
+
+struct RecentIngredientRow: View {
+    @EnvironmentObject var userData: UserData
+    
+    var body: some View {
+        IngredientRow(items: userData.recentIngredients, isRecentIngredientType: true)
+    }
+}
+
 struct IngredientRow: View {
+    var items: [String]
     let fontColor = Color(red:0.44, green: 0.44, blue: 0.44, opacity: 1.0)
-    var items = ["rum", "banana"]
+    var isRecentIngredientType: Bool
     
     var body: some View {
         VStack(alignment: .leading) {
-            /*Text(self.categoryName)
-                .font(.headline)
-                .padding(.leading, 15)
-                .padding(.top, 5)*/
-            
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top, spacing: 0) {
                     ForEach(items, id: \.self) { ingredient in
-                        NavigationLink(
-                        destination: CocktailizeHome()) {
-                            CategoryItem()
-                        }
-                        .padding(.trailing, 33)
+                        CategoryItem(isRecentIngredientType: self.isRecentIngredientType, ingredient: ingredient)
+                        .padding(.leading, 33)
                     }
                 }
             }
             .frame(height: 112)
-            
         }
-        //CategoryItem()
     }
 }
 
 struct CategoryItem: View {
+    @EnvironmentObject var userData: UserData
     
-    //var landmark: Landmark
+    var isRecentIngredientType: Bool
+    var ingredient: String
     
     var body: some View {
         VStack {
-            Text("Rum")
+            Text(ingredient)
                 .font(.system(size: 22))
                 .fontWeight(.light)
                 .foregroundColor(Color(red:0.44, green: 0.44, blue: 0.44, opacity: 1.0))
@@ -53,27 +62,52 @@ struct CategoryItem: View {
             Button(action: {
                  print("button pressed")
              }) {
-                Text("Remove")
+                if (isRecentIngredientType) {
+                    Text("Add")
                     .font(.system(size: 12))
                     .fontWeight(.light)
+                        .foregroundColor(.blue)
                     .multilineTextAlignment(.trailing)
-                    
+                    .onTapGesture {
+                        self.addSuggestedIngredient(ingredient: self.ingredient)
+                    }
+                } else {
+                    Text("Remove")
+                    .font(.system(size: 12))
+                    .fontWeight(.light)
+                    .foregroundColor(.red)
+                    .multilineTextAlignment(.trailing)
+                    .onTapGesture {
+                        self.userData.selectedIngredients.remove(at: self.userData.selectedIngredients.firstIndex(of: self.ingredient) ?? 0)
+                    }
+                }
             }
             .padding(.top, 20)
             .padding(.trailing, 12)
             .frame(maxWidth: .infinity, alignment: .trailing)
-            //.renderingMode(.original)
-            //.buttonStyle(PlainButtonStyle())
-
         }
         .frame(width: 112, height: 112, alignment: .leading)
         .background(Color.white)
         .cornerRadius(19)
     }
+    
+    func addSuggestedIngredient(ingredient: String) {
+        // Check if ingredient is not already present in the selected ingredient list. If it is, then we don't add it
+        // (prevent same ingredient appear twice)
+        if (!self.userData.selectedIngredients.contains(ingredient)) {
+            self.userData.selectedIngredients.append(ingredient)
+        }
+        self.userData.recentIngredients.remove(at: self.userData.recentIngredients.firstIndex(of: ingredient) ?? 0)
+    }
 }
 
 struct IngredientRow_Previews: PreviewProvider {
     static var previews: some View {
-        IngredientRow()
+        let userData = UserData()
+        return ForEach(["iPhone SE", "iPhone XS Max"], id: \.self) { deviceName in
+            IngredientRow(items: userData.recentIngredients, isRecentIngredientType: false)
+            .previewDevice(PreviewDevice(rawValue: deviceName))
+            .previewDisplayName(deviceName)
+        }
     }
 }
