@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct CocktailizeHome: View {
+    
     var body: some View {
         NavigationView {
             GeometryReader { geo in
@@ -39,7 +40,7 @@ struct CocktailizeHome: View {
                             
                             Spacer()
                             
-                            NavigationLink(destination: CocktailSearch()) {
+                            NavigationLink(destination: MainView()) {
                                 Text("Start")
                                     .fontWeight(.semibold)
                                     .font(.title)
@@ -65,10 +66,12 @@ struct CocktailizeHome: View {
 
 struct CocktailizeHome_Previews: PreviewProvider {
     static var previews: some View {
-        ForEach(["iPhone SE", "iPhone XS Max"], id: \.self) { deviceName in
+        let userData = UserData()
+        return ForEach(["iPhone SE", "iPhone XS Max"], id: \.self) { deviceName in
             CocktailizeHome()
             .previewDevice(PreviewDevice(rawValue: deviceName))
             .previewDisplayName(deviceName)
+            .environmentObject(userData)
         }
     }
 }
