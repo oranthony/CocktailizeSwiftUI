@@ -17,7 +17,9 @@ class CocktailViewModel: ObservableObject, Identifiable, Hashable {
     let id = UUID()
     var cocktailImage: ImageView?
     var cocktail = Items()
-    @Published var backgroundColor = UIColor.gray {
+    var ingredients: String = ""
+    
+    @Published var backgroundColor = UIColor(red: 0.7882, green: 0.7882, blue: 0.7882, alpha: 1.0) {
         didSet {
             objectWillChange.send(self)
         }
@@ -33,7 +35,6 @@ class CocktailViewModel: ObservableObject, Identifiable, Hashable {
     }
     
     init() {
-        print(cocktail)
         self.cocktailImage = ImageView(withURL: "", height: 0) {_ in }
     }
     
@@ -42,24 +43,59 @@ class CocktailViewModel: ObservableObject, Identifiable, Hashable {
         //TODO: remove height from initializer && set default image with an actual image
         
         //backgroundColor = setBackgroundColor()
+        createIngredientList()
         loadPicture()
     }
     
-    func loadPicture() {
-        self.cocktailImage = ImageView(withURL: cocktail.imageUrl ?? "", height: (UIScreen.main.bounds.size.height * 0.55)) {result in
-            self.backgroundColor = self.setBackgroundColor(image: result)
-            //setBackgroundColor(image: result)
+    func createIngredientList() {
+        for (_, subElement) in (cocktail.ingredients?.items?.enumerated())! {
+            ingredients += "- " + (subElement.ingredient ?? "").capitalizedFirst() + "\n"
         }
     }
     
-    func setBackgroundColor(image: UIImage) -> UIColor {
+    func loadPicture() {
+        // Set the cocktail image
+        self.cocktailImage = ImageView(withURL: cocktail.imageUrl ?? "", height: (UIScreen.main.bounds.size.height * 0.55)) {result in
+            // The background color of each card is computed from the cocktail image.
+            self.setBackgroundColor(image: result)
+        }
+    }
+    
+    /**
+     Compute the ideal background color for the cocktail card from the cocktail image
+     */
+    func setBackgroundColor(image: UIImage)  {
         var hue: CGFloat = 0
         var saturation: CGFloat = 0
         var brightness: CGFloat = 0
         var alpha: CGFloat = 0
-        image.getColors()!.background.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
-        let color = UIColor(hue: hue, saturation: 0.28, brightness: 1, alpha: 1)
-        return color
+        var color = UIColor()
+        
+        // Compute the background color from the cocktail image on the background
+        DispatchQueue.global(qos: .userInitiated).async {
+            image.getColors()!.background.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
+            color = UIColor(hue: hue, saturation: 0.28, brightness: 1, alpha: 1)
+            // Update the UI from the main thread
+            DispatchQueue.main.async {
+                self.backgroundColor = color
+            }
+            return
+        }
     }
     
+}
+
+// Capitalize letters
+extension String {
+    func capitalizedFirst() -> String {
+        let first = self[self.startIndex ..< self.index(startIndex, offsetBy: 1)]
+        let rest = self[self.index(startIndex, offsetBy: 1) ..< self.endIndex]
+        return first.uppercased() + rest.lowercased()
+    }
+    
+    func capitalizedFirst(with: Locale?) -> String {
+        let first = self[self.startIndex ..< self.index(startIndex, offsetBy: 1)]
+        let rest = self[self.index(startIndex, offsetBy: 1) ..< self.endIndex]
+        return first.uppercased(with: with) + rest.lowercased(with: with)
+    }
 }

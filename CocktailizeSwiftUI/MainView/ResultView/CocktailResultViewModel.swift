@@ -11,7 +11,7 @@ import SwiftUI
 import Combine
 
 class CocktailResultViewModel: ObservableObject {
-        
+    @EnvironmentObject var userData: UserData
     let objectWillChange = PassthroughSubject<CocktailResultViewModel, Never>()
     
     //@ObservedObject var fetcher = CocktailFetcher()
@@ -24,14 +24,26 @@ class CocktailResultViewModel: ObservableObject {
     
     var items = [CocktailViewModel]()
     
-    init() {
+    init(items: [Items]) {
         print("allo")
-        getCocktails()
+        //getCocktails()
+        self.items = items.map(CocktailViewModel.init)
     }
     
-    private func getCocktails() {
-        print("start request")
-        guard let url = URL(string: "https://cocktailflow.com/ajax/search/more/cocktail?count=100&phrase=vodka") else {
+    /*private func getCocktails() {
+        //Create param for the query
+        var queryParam = ""
+        
+        /*for (i, element) in userData.selectedIngredients.enumerated(){
+            queryParam.append(element)
+            if i != userData.selectedIngredients.count - 1 {
+                queryParam.append("%20")
+            }
+        }
+        
+        queryParam = queryParam.replacingOccurrences(of: " ", with: "%20")*/
+        
+        guard let url = URL(string: "https://cocktailflow.com/ajax/search/more/cocktail?count=100&phrase=vodka" + queryParam) else {
             fatalError("URL is not correct!")
         }
         
@@ -43,34 +55,10 @@ class CocktailResultViewModel: ObservableObject {
             }
             
         }
-    }
+    }*/
     
     
    
 }
 
 
-class Webservice {
-    // TODO: Move to dedicated file
-    func loadTopHeadlines(url: URL, completion: @escaping ([Items]?) -> ()) {
-           
-           URLSession.shared.dataTask(with: url) { data, response, error in
-               
-               guard let data = data, error == nil else {
-                   completion(nil)
-                   return
-               }
-               
-               let response = try? JSONDecoder().decode(Json4Swift_Base.self, from: data)
-               if let response = response {
-                   DispatchQueue.main.async {
-                       print("request completed")
-                        //print(response)
-                       //self.userData.cocktailList = response
-                    completion(response.items)
-                   }
-               }
-           }.resume()
-           
-       }
-}

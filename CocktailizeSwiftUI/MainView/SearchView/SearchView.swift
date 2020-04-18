@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct SearchView: View {
+    @Environment(\.startSearchFunction) var startSearchFunction
     @EnvironmentObject var userData: UserData
     //@ObservedObject var fetcher: CocktailFetcher
     let fontColor = Color(red:0.44, green: 0.44, blue: 0.44, opacity: 1.0)
@@ -52,7 +53,9 @@ struct SearchView: View {
                         .padding(.horizontal, 50.0)
                         .onTapGesture {
                             //self.fetcher.load()
-                            self.userData.isShowSearch = false
+                            //self.userData.isShowSearch = false
+                            // Call parent view to trigger cocktails search
+                            self.startSearchFunction?()
                     }
                 //}
                 //.padding(.bottom, geo.size.height / 20)

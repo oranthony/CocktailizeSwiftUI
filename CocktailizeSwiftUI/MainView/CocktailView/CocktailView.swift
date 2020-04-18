@@ -52,16 +52,18 @@ struct CocktailView: View {
                         }
                         .padding([.top, .leading])
                         
-                        Text(self.receipe)
+                        Text(self.model.ingredients)
                             .font(.title)
                             .fontWeight(.light)
                             .multilineTextAlignment(.leading)
-                            .padding(.leading)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                            .padding([.top, .leading])
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                            .foregroundColor(self.fontColor)
                             .background(Color(self.model.backgroundColor))
+                            //.onAppear(perform: {self.model.loadPicture()})
                     }
                     .background(Color.white)
-                    .frame(maxWidth: geo.size.width * 0.91, maxHeight: geo.size.height * 0.98, alignment: .bottomLeading)
+                    .frame(maxWidth: geo.size.width * 0.91, maxHeight: geo.size.height * 0.95, alignment: .bottomLeading)
                     .cornerRadius(20)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)

@@ -8,19 +8,37 @@
 
 import SwiftUI
 
+// Share function with child view (SearchView) to trigger cocktails search
+struct StartSearchFunctionKey: EnvironmentKey {
+    static let defaultValue: (() -> Void)? = nil
+}
+
+extension EnvironmentValues {
+    var startSearchFunction: (() -> Void)? {
+        get { self[StartSearchFunctionKey.self] }
+        set { self[StartSearchFunctionKey.self] = newValue }
+    }
+}
+
+
 struct MainView: View {
     @EnvironmentObject var userData: UserData
     @State private var ingredientSearchBarContent = ""
     @State private var isSearchBarFocused = false
     
-    //@ObservedObject var fetcher = CocktailFetcher()
-    
-    //@State var isShowSearch = true
-    
     let fontColor = Color(red:0.44, green: 0.44, blue: 0.44, opacity: 1.0)
     var isIngredientEnter = false
 
     @ObservedObject var model = MainViewModel()
+    
+    // Triggered when user click on start on SearchView (via environment key)
+    func startSearchFunction() {
+        self.model.hideSearch()
+        // Call model load function with param from env object and then display SearchView
+        model.loadCocktail(ingredients: userData.selectedIngredients) {
+            self.userData.isShowSearch = false
+        }
+    }
     
     var body: some View {
           NavigationView {
@@ -47,6 +65,8 @@ struct MainView: View {
                                     if editingChanged {
                                         self.isSearchBarFocused = true
                                         self.userData.isShowSearch = true
+                                        /*self.model.hideResult()
+                                        self.model.showSearch()*/
                                     } else {
                                         self.isSearchBarFocused = false
                                     }
@@ -92,10 +112,22 @@ struct MainView: View {
                             }
                         }
                         
-                        if (self.userData.isShowSearch) {
+                       /* if (self.userData.isShowSearch) {
                             SearchView()
                         } else {
-                            LazyView { CocktailResult() }
+                            LazyView { CocktailResult(model: CocktailResultViewModel(items: self.model.items)) }
+                        }*/
+                        
+                        ZStack {
+                            /*SearchView().offset(x: self.model.searchOffset).animation(.easeIn(duration: 0.8))
+                            
+                            LazyView { CocktailResult(model: CocktailResultViewModel(items: self.model.items)) }.offset(x: self.model.resultOffset).animation(.easeOut(duration: 0.8))*/
+                            
+                            SearchView().offset(x: self.userData.isShowSearch ? 0 : -UIScreen.main.bounds.width ).animation(.easeIn(duration: 0.5))
+                            
+                            LazyView { CocktailResult(model: CocktailResultViewModel(items: self.model.items)) }.offset(x: !self.userData.isShowSearch ? 0 : UIScreen.main.bounds.width).animation(.easeOut(duration: 0.5))
+                            
+                            
                         }
                     }
                 }
@@ -106,8 +138,9 @@ struct MainView: View {
         //.navigationBarBackButtonHidden(true)
         .navigationBarTitle("", displayMode: .inline)
         .navigationBarHidden(true)
+        .environment(\.startSearchFunction, startSearchFunction)
     }
-    
+
     func dismissKeyboard() {
         let keyWindow = UIApplication.shared.connectedScenes
                 .filter({$0.activationState == .foregroundActive})
@@ -117,6 +150,15 @@ struct MainView: View {
                 .filter({$0.isKeyWindow}).first
         keyWindow?.endEditing(true)
     }
+}
+
+extension AnyTransition {
+  static var customTransition: AnyTransition {
+    let transition = AnyTransition.move(edge: .top)
+      .combined(with: .scale(scale: 0.2, anchor: .topTrailing))
+      .combined(with: .opacity)
+    return transition
+  }
 }
 
 struct CocktailSearch_Previews: PreviewProvider {
