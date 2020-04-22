@@ -40,6 +40,9 @@ struct CocktailizeHome: View {
                             
                             Spacer()
                             
+                            CocktailPath()
+                                
+                            
                             NavigationLink(destination: MainView()) {
                                 Text("Start")
                                     .fontWeight(.semibold)

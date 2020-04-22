@@ -13,8 +13,8 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 import Foundation
 struct Words : Codable {
-	let word : String?
-	let type : String?
+	var word : String?
+	var type : String?
 
 	enum CodingKeys: String, CodingKey {
 
@@ -27,5 +27,10 @@ struct Words : Codable {
 		word = try values.decodeIfPresent(String.self, forKey: .word)
 		type = try values.decodeIfPresent(String.self, forKey: .type)
 	}
+    
+    init() {
+        word = "a"
+        type = "a"
+    }
 
 }

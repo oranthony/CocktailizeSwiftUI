@@ -59,10 +59,6 @@ struct ImageView: View {
                 .frame(height: height)
         }.onReceive(imageLoader.didChange) { data in
             self.image = UIImage(data: data) ?? UIImage()
-            if (!self.userData.cocktailColorDictionnary.keys.contains(self.url)) {
-                self.userData.cocktailColorDictionnary[self.url] = Color.red
-            }
-            //self.avgColor = Color.red
         }
     }
 }

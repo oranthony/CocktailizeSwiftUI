@@ -18,16 +18,19 @@ class MainViewModel: ObservableObject {
     @Published var searchOffset: CGFloat = 0.0
     @Published var resultOffset: CGFloat = 10000.0
     
+    //@Published var isSearchHidden = false
+    
     init() {
+        
     }
     
     func loadCocktail(ingredients: [String], completion: @escaping () -> ()) {
         //self.hideSearch()
-        
-        // Check is user actually entered ingredients and if those are different from last search
-        if (!ingredients.isEmpty && ingredients != lastSearchIngredients) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            // Check is user actually entered ingredients and if those are different from last search
+            if (!ingredients.isEmpty && ingredients != self.lastSearchIngredients) {
             //Save new ingredients search
-            lastSearchIngredients = ingredients
+                self.lastSearchIngredients = ingredients
             
             print(ingredients)
             
@@ -50,6 +53,7 @@ class MainViewModel: ObservableObject {
             
             // Store result in class property
             Webservice().loadTopHeadlines(url: url) { items in
+                print("webservice called")
                 //self.cocktails.items = items
                 
                 /*if let items = items {
@@ -66,15 +70,12 @@ class MainViewModel: ObservableObject {
             //self.showResult()
             completion()
         }
-        
-        
-        // Check if ingredients are news
-        // If new ingredients -> call model to get the cocktails, populate CocktaiResultViewlModel then display result view
-        // Else -> just display result view (avoid refresh view)
-        
-        
+        }
+
     }
     
+    
+    // TODO: Remove because useless now
     func showResult() {
         //self.searchOffset = -10000.0
         self.resultOffset = 0.0

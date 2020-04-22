@@ -25,22 +25,37 @@ struct MainView: View {
     @EnvironmentObject var userData: UserData
     @State private var ingredientSearchBarContent = ""
     @State private var isSearchBarFocused = false
+    @State var isSearchHidden = false
+    @State var isResultHidden = true
+    @State var isSearchBarHidden = false
     
     let fontColor = Color(red:0.44, green: 0.44, blue: 0.44, opacity: 1.0)
     var isIngredientEnter = false
 
     @ObservedObject var model = MainViewModel()
     
+
+    
+    
+    
     // Triggered when user click on start on SearchView (via environment key)
     func startSearchFunction() {
-        self.model.hideSearch()
+        withAnimation {
+            isSearchHidden.toggle()
+        }
+        //isSearchHidden = true
         // Call model load function with param from env object and then display SearchView
         model.loadCocktail(ingredients: userData.selectedIngredients) {
-            self.userData.isShowSearch = false
+            DispatchQueue.main.async {
+                withAnimation {
+                    self.isResultHidden.toggle()
+                }
+            }
         }
     }
     
     var body: some View {
+        //startSearchFunction()
           NavigationView {
             //TODO: Remove geometry reader ?
               GeometryReader { geo in
@@ -48,14 +63,18 @@ struct MainView: View {
                       .resizable()
                       .edgesIgnoringSafeArea(.all)
                 
-                VStack(alignment: .leading) {
+                ZStack {
                     VStack(alignment: .leading) {
-                        if (self.userData.isShowSearch) {
+                        if (!self.isSearchHidden) {
                             Text("Search ingredients")
                                 .font(.largeTitle)
                                 .foregroundColor(self.fontColor)
                                 .multilineTextAlignment(.leading)
                                 .padding(.leading, 30.0)
+                                .transition(.asymmetric(insertion: AnyTransition.move(edge: .top).combined(with: .opacity), removal: AnyTransition.move(edge: .top).combined(with: .opacity)))
+                                /*.offset(y: self.isSearchHidden ? -100 : 0).animation(.easeIn(duration: 0.5)).onDisappear {
+                                    self.isSearchBarHidden = true
+                            }*/
                         }
                             
                         HStack {
@@ -64,7 +83,10 @@ struct MainView: View {
                                 TextField("rum", text: self.$ingredientSearchBarContent, onEditingChanged: { (editingChanged) in
                                     if editingChanged {
                                         self.isSearchBarFocused = true
-                                        self.userData.isShowSearch = true
+                                        withAnimation {
+                                            self.isSearchHidden.toggle()
+                                            self.isResultHidden.toggle()
+                                        }
                                         /*self.model.hideResult()
                                         self.model.showSearch()*/
                                     } else {
@@ -92,6 +114,7 @@ struct MainView: View {
                             .padding(.leading, 30.0)
                             .shadow(radius: 4)
                             
+                            
                             if (self.isSearchBarFocused) {
                                 Text("Cancel")
                                     .frame(width: 70, alignment: .center)
@@ -111,6 +134,8 @@ struct MainView: View {
                                     .padding(.trailing, 10)
                             }
                         }
+                        //.offset(y: self.isSearchHidden ? -5 : 0).animation(.easeIn(duration: 0.5))
+                        //.position(x: 0, y: self.isSearchHidden ? -50 : 0).animation(.easeIn(duration: 0.5))
                         
                        /* if (self.userData.isShowSearch) {
                             SearchView()
@@ -118,17 +143,39 @@ struct MainView: View {
                             LazyView { CocktailResult(model: CocktailResultViewModel(items: self.model.items)) }
                         }*/
                         
+                         //CocktailPath()
+                        
                         ZStack {
                             /*SearchView().offset(x: self.model.searchOffset).animation(.easeIn(duration: 0.8))
                             
                             LazyView { CocktailResult(model: CocktailResultViewModel(items: self.model.items)) }.offset(x: self.model.resultOffset).animation(.easeOut(duration: 0.8))*/
                             
-                            SearchView().offset(x: self.userData.isShowSearch ? 0 : -UIScreen.main.bounds.width ).animation(.easeIn(duration: 0.5))
-                            
-                            LazyView { CocktailResult(model: CocktailResultViewModel(items: self.model.items)) }.offset(x: !self.userData.isShowSearch ? 0 : UIScreen.main.bounds.width).animation(.easeOut(duration: 0.5))
                             
                             
-                        }
+                            /*
+                            /*LazyView {*/ CocktailResult(model: CocktailResultViewModel(items: self.model.items)) /*}*/.offset(x: !self.isResultHidden ? 0 : UIScreen.main.bounds.width).transition(.move(edge: .top))  /*.animation(.easeOut(duration: 0.5))*/
+                            */
+                            
+                            /*if (!self.isResultHidden) {
+                                CocktailResult(model: CocktailResultViewModel(items: self.model.items)).transition(.move(edge: .top))
+                            }*/
+                            
+                            
+                            /*
+                            SearchView().offset(x: !self.isSearchHidden ? 0 : -UIScreen.main.bounds.width ).animation(.easeIn(duration: 0.5))
+                            CocktailResult(model: CocktailResultViewModel(items: self.model.items)).offset(x: !self.isResultHidden ? 0 : UIScreen.main.bounds.width)
+                             */
+                            
+                            if (!self.isSearchHidden) {
+                                SearchView().transition(.move(edge: .leading))
+                            }
+                            
+                            if (!self.isResultHidden) {
+                                CocktailResult(model: CocktailResultViewModel(items: self.model.items)).transition(.move(edge: .trailing))
+                            }
+                            
+                            
+                        }/*.offset(x: !self.isSearchHidden ? 0 : -UIScreen.main.bounds.width ).animation(.easeIn(duration: 0.5))*/
                     }
                 }
                 .padding(.vertical, 20.0)

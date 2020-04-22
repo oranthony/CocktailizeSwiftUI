@@ -8,8 +8,8 @@
 
 import Foundation
 struct ItemsIngredient : Codable {
-    let ingredient : String?
-    let quantity : String?
+    var ingredient : String?
+    var quantity : String?
     
     enum CodingKeys: String, CodingKey {
         
@@ -21,6 +21,11 @@ struct ItemsIngredient : Codable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         ingredient = try values.decodeIfPresent(String.self, forKey: .ingredient)
         quantity = try values.decodeIfPresent(String.self, forKey: .quantity)
+    }
+    
+    init() {
+        ingredient = "a"
+        quantity = "a"
     }
 
 }

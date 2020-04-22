@@ -24,5 +24,9 @@ struct PreparationSteps : Codable {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
 		items = try values.decodeIfPresent([ItemsPreparation].self, forKey: .items)
 	}
+    
+    init() {
+        items = [ItemsPreparation()]
+    }
 
 }

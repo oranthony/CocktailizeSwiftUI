@@ -9,12 +9,12 @@
 import SwiftUI
 import Combine
 
-struct LazyView<CocktailResult: View>: View {
+/*struct LazyView<CocktailResult: View>: View {
     var content: () -> CocktailResult
     var body: some View {
        self.content()
     }
-}
+}*/
 
 struct CocktailResult: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -27,6 +27,11 @@ struct CocktailResult: View {
     let cocktailRes = ["Cocktail 1", "Cocktail 2"]
     
     @ObservedObject var model: CocktailResultViewModel
+    
+    
+    
+    var center = 300.0
+    @State var show = false
     
     var body: some View {
         return GeometryReader { geo in
@@ -44,6 +49,7 @@ struct CocktailResult: View {
                                     .shadow(radius: 5)
                             }
                             .offset(x: 30, y: 0)
+    
                         }
                     }
                 }
@@ -56,8 +62,11 @@ struct CocktailResult: View {
 struct CocktailResult_Previews: PreviewProvider {
     static var previews: some View {
         //let fetcher = CocktailFetcher()
+        var item = Items(name: "dfedf")
+        var item2 = Items(name: "dfedf")
+        
         return ForEach(["iPhone SE", "iPhone XS Max"], id: \.self) { deviceName in
-            CocktailResult(model: CocktailResultViewModel(items: [Items()]))
+            CocktailResult(model: CocktailResultViewModel())
                 .previewDevice(PreviewDevice(rawValue: deviceName))
                 .previewDisplayName(deviceName)
         }

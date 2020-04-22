@@ -8,8 +8,8 @@
 
 import Foundation
 struct ItemsPreparation : Codable {
-    let index : Int?
-    let words : [Words]?
+    var index : Int?
+    var words : [Words]?
     
     enum CodingKeys: String, CodingKey {
         
@@ -21,6 +21,11 @@ struct ItemsPreparation : Codable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         index = try values.decodeIfPresent(Int.self, forKey: .index)
         words = try values.decodeIfPresent([Words].self, forKey: .words)
+    }
+    
+    init() {
+        index = 0
+        words = [Words()]
     }
     
 }

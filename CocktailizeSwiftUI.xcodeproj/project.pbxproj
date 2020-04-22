@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -27,6 +27,10 @@
 		646740F1243F1C2A005FAA26 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646740F0243F1C2A005FAA26 /* UserData.swift */; };
 		646740F3243F8D44005FAA26 /* CocktailResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646740F2243F8D44005FAA26 /* CocktailResult.swift */; };
 		646740F5243F9914005FAA26 /* CocktailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646740F4243F9914005FAA26 /* CocktailView.swift */; };
+		64BC50CD244CE02B00C929BC /* ShimmerView in Frameworks */ = {isa = PBXBuildFile; productRef = 64BC50CC244CE02B00C929BC /* ShimmerView */; };
+		64BC50CF244CEFB500C929BC /* CocktailPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BC50CE244CEFB500C929BC /* CocktailPath.swift */; };
+		64BC50D3244CF93700C929BC /* FAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BC50D1244CF93700C929BC /* FAView.swift */; };
+		64BC50D4244CF93700C929BC /* FAShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BC50D2244CF93700C929BC /* FAShimmerView.swift */; };
 		64D35DE924420F3600E1243C /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D35DE824420F3500E1243C /* SearchView.swift */; };
 		64D35DEB24437C8A00E1243C /* Cocktail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D35DEA24437C8A00E1243C /* Cocktail.swift */; };
 		64D35DED24437E5C00E1243C /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D35DEC24437E5C00E1243C /* Fetcher.swift */; };
@@ -63,6 +67,9 @@
 		646740F0243F1C2A005FAA26 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		646740F2243F8D44005FAA26 /* CocktailResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailResult.swift; sourceTree = "<group>"; };
 		646740F4243F9914005FAA26 /* CocktailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailView.swift; sourceTree = "<group>"; };
+		64BC50CE244CEFB500C929BC /* CocktailPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailPath.swift; sourceTree = "<group>"; };
+		64BC50D1244CF93700C929BC /* FAView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAView.swift; sourceTree = "<group>"; };
+		64BC50D2244CF93700C929BC /* FAShimmerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAShimmerView.swift; sourceTree = "<group>"; };
 		64D35DE824420F3500E1243C /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		64D35DEA24437C8A00E1243C /* Cocktail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cocktail.swift; sourceTree = "<group>"; };
 		64D35DEC24437E5C00E1243C /* Fetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetcher.swift; sourceTree = "<group>"; };
@@ -82,6 +89,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				66824C0502CC0953D6832D93 /* Pods_CocktailizeSwiftUI.framework in Frameworks */,
+				64BC50CD244CE02B00C929BC /* ShimmerView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,6 +161,7 @@
 		645E223C2437AB790053804C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				64BC50D0244CF90E00C929BC /* ShimmerLoading */,
 				64667BB724449C230085382E /* Image */,
 				645E223D2437AB9D0053804C /* ViewModifiers.swift */,
 			);
@@ -202,6 +211,7 @@
 			children = (
 				646740F4243F9914005FAA26 /* CocktailView.swift */,
 				64667BCB24461AD50085382E /* CocktailViewModel.swift */,
+				64BC50CE244CEFB500C929BC /* CocktailPath.swift */,
 			);
 			path = CocktailView;
 			sourceTree = "<group>";
@@ -222,6 +232,15 @@
 				64D35DEC24437E5C00E1243C /* Fetcher.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		64BC50D0244CF90E00C929BC /* ShimmerLoading */ = {
+			isa = PBXGroup;
+			children = (
+				64BC50D2244CF93700C929BC /* FAShimmerView.swift */,
+				64BC50D1244CF93700C929BC /* FAView.swift */,
+			);
+			path = ShimmerLoading;
 			sourceTree = "<group>";
 		};
 		64D35E0024438CE100E1243C /* Cocktail */ = {
@@ -266,6 +285,9 @@
 			dependencies = (
 			);
 			name = CocktailizeSwiftUI;
+			packageProductDependencies = (
+				64BC50CC244CE02B00C929BC /* ShimmerView */,
+			);
 			productName = CocktailizeSwiftUI;
 			productReference = 645E221D243498A20053804C /* CocktailizeSwiftUI.app */;
 			productType = "com.apple.product-type.application";
@@ -294,6 +316,9 @@
 				Base,
 			);
 			mainGroup = 645E2214243498A20053804C;
+			packageReferences = (
+				64BC50CB244CE02B00C929BC /* XCRemoteSwiftPackageReference "ShimmerView" */,
+			);
 			productRefGroup = 645E221E243498A20053804C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -376,12 +401,15 @@
 				64667BCC24461AD50085382E /* CocktailViewModel.swift in Sources */,
 				64667BC92445F8720085382E /* CocktailResultViewModel.swift in Sources */,
 				64D35E0C24438D1A00E1243C /* Tags.swift in Sources */,
+				64BC50D3244CF93700C929BC /* FAView.swift in Sources */,
 				64D35DED24437E5C00E1243C /* Fetcher.swift in Sources */,
+				64BC50CF244CEFB500C929BC /* CocktailPath.swift in Sources */,
 				64D35E0924438D1A00E1243C /* PreparationSteps.swift in Sources */,
 				64D35E0824438D1A00E1243C /* Ingredients.swift in Sources */,
 				645E2238243499C30053804C /* Home.swift in Sources */,
 				64667BC12444C0D90085382E /* ImageLoader.swift in Sources */,
 				64D35E0724438D1A00E1243C /* Words.swift in Sources */,
+				64BC50D4244CF93700C929BC /* FAShimmerView.swift in Sources */,
 				645E223B243647B00053804C /* MainView.swift in Sources */,
 				64667BC42445E9DE0085382E /* MainViewModel.swift in Sources */,
 				645E2228243498A20053804C /* ContentView.swift in Sources */,
@@ -584,6 +612,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		64BC50CB244CE02B00C929BC /* XCRemoteSwiftPackageReference "ShimmerView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Vidhyadharan-Mohanram/ShimmerView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		64BC50CC244CE02B00C929BC /* ShimmerView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 64BC50CB244CE02B00C929BC /* XCRemoteSwiftPackageReference "ShimmerView" */;
+			productName = ShimmerView;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		645E2224243498A20053804C /* CocktailizeSwiftUI.xcdatamodeld */ = {

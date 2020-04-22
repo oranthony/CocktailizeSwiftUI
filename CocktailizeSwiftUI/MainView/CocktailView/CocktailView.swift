@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import ShimmerView
 
 struct CocktailView: View {
     @EnvironmentObject var userData: UserData
@@ -16,6 +17,9 @@ struct CocktailView: View {
     "-azza \n"
     + "-dfvdf \n"
     + "-dferferf \n"
+    
+    @State var show = true
+    var center = (UIScreen.main.bounds.width / 2) + 110
     
     @ObservedObject var model: CocktailViewModel
     
@@ -73,9 +77,16 @@ struct CocktailView: View {
                     .position(x: geo.size.width * 0.72, y: geo.size.height * 0.19)*/
                 self.model.cocktailImage
                     .position(x: geo.size.width * 0.72, y: geo.size.height * 0.19)
+                    
+                /*CocktailPath()
+                    .position(x: geo.size.width * 0.70, y: geo.size.height * 0.1)
+                    .frame(height: UIScreen.main.bounds.size.height * 0.45)*/
+                    
             }
         }
+        //.environmentObject(ShimmerConfig())
     }
+    
 }
 
 struct CocktailView_Previews: PreviewProvider {

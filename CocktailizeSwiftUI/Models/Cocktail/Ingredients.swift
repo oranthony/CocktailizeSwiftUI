@@ -25,4 +25,7 @@ struct Ingredients : Codable {
 		items = try values.decodeIfPresent([ItemsIngredient].self, forKey: .items)
 	}
 
+    init() {
+        items = [ItemsIngredient()]
+    }
 }

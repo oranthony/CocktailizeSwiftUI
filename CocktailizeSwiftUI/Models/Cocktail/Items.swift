@@ -25,7 +25,7 @@ struct Items : Codable, Hashable, Identifiable {
     let id = UUID()
     
 	let key : String?
-	let name : String?
+	var name : String?
 	let imageUrl : String?
 	let backgroundUrl : String?
 	let preparationSteps : PreparationSteps?
@@ -61,5 +61,14 @@ struct Items : Codable, Hashable, Identifiable {
         backgroundUrl = ""
         preparationSteps = nil
         ingredients = nil
+    }
+    
+    init(name: String) {
+        key = "xx"
+        self.name = name
+        imageUrl = "https://upload.wikimedia.org/wikipedia/commons/5/59/Empty.png"
+        backgroundUrl = "https://upload.wikimedia.org/wikipedia/commons/5/59/Empty.png"
+        preparationSteps = PreparationSteps()
+        ingredients = Ingredients()
     }
 }

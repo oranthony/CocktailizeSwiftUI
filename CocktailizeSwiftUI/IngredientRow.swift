@@ -34,7 +34,7 @@ struct IngredientRow: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top, spacing: 0) {
                     ForEach(items, id: \.self) { ingredient in
-                        CategoryItem(isRecentIngredientType: self.isRecentIngredientType, ingredient: ingredient)
+                        CategoryItem(isRecentIngredientType: self.isRecentIngredientType, ingredient: ingredient).transition(.move(edge: .leading))
                         .padding(.leading, 33)
                     }
                 }
@@ -69,7 +69,9 @@ struct CategoryItem: View {
                         .foregroundColor(.blue)
                     .multilineTextAlignment(.trailing)
                     .onTapGesture {
-                        self.addSuggestedIngredient(ingredient: self.ingredient)
+                        withAnimation{
+                            self.addSuggestedIngredient(ingredient: self.ingredient)
+                        }
                     }
                 } else {
                     Text("Remove")
@@ -78,7 +80,9 @@ struct CategoryItem: View {
                     .foregroundColor(.red)
                     .multilineTextAlignment(.trailing)
                     .onTapGesture {
-                        self.userData.selectedIngredients.remove(at: self.userData.selectedIngredients.firstIndex(of: self.ingredient) ?? 0)
+                        withAnimation{
+                        self.removeSelectedIngredient(ingredient: self.ingredient)
+                        }
                     }
                 }
             }
@@ -98,6 +102,10 @@ struct CategoryItem: View {
             self.userData.selectedIngredients.append(ingredient)
         }
         self.userData.recentIngredients.remove(at: self.userData.recentIngredients.firstIndex(of: ingredient) ?? 0)
+    }
+    
+    func removeSelectedIngredient(ingredient: String) {
+        self.userData.selectedIngredients.remove(at: self.userData.selectedIngredients.firstIndex(of: ingredient) ?? 0)
     }
 }
 

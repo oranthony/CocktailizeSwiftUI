@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "ShimmerView",
+        "repositoryURL": "https://github.com/Vidhyadharan-Mohanram/ShimmerView",
+        "state": {
+          "branch": null,
+          "revision": "8b1964570470174e687cee179deab5b3302a5643",
+          "version": "0.1.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

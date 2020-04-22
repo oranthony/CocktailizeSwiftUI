@@ -11,11 +11,12 @@ import SwiftUI
 import Combine
 
 class CocktailResultViewModel: ObservableObject {
-    @EnvironmentObject var userData: UserData
+    //@EnvironmentObject var userData: UserData
     let objectWillChange = PassthroughSubject<CocktailResultViewModel, Never>()
     
     //@ObservedObject var fetcher = CocktailFetcher()
     
+    //TODO: Remove ?
     var cocktails = Json4Swift_Base() {
         didSet {
             objectWillChange.send(self)
@@ -24,8 +25,12 @@ class CocktailResultViewModel: ObservableObject {
     
     var items = [CocktailViewModel]()
     
+    init() {
+        
+    }
+    
     init(items: [Items]) {
-        print("allo")
+        //print("allo")
         //getCocktails()
         self.items = items.map(CocktailViewModel.init)
     }

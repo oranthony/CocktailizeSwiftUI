@@ -19,6 +19,8 @@ class CocktailViewModel: ObservableObject, Identifiable, Hashable {
     var cocktail = Items()
     var ingredients: String = ""
     
+    @Published var isImageLoaded = false
+    
     @Published var backgroundColor = UIColor(red: 0.7882, green: 0.7882, blue: 0.7882, alpha: 1.0) {
         didSet {
             objectWillChange.send(self)
@@ -56,6 +58,7 @@ class CocktailViewModel: ObservableObject, Identifiable, Hashable {
     func loadPicture() {
         // Set the cocktail image
         self.cocktailImage = ImageView(withURL: cocktail.imageUrl ?? "", height: (UIScreen.main.bounds.size.height * 0.55)) {result in
+            //self.isImageLoaded = true
             // The background color of each card is computed from the cocktail image.
             self.setBackgroundColor(image: result)
         }
