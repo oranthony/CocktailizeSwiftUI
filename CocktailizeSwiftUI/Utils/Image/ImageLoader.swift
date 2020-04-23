@@ -12,25 +12,51 @@ import SwiftUI
 
 class ImageLoader: ObservableObject {
     var didChange = PassthroughSubject<Data, Never>()
-    var data = Data() {
+    var urlString: String?
+    var imageCache = ImageCache.getImageCache()
+    /*var data: UIImage? {
         didSet {
-            didChange.send(data)
+            //didChange.send(data)
+            super.data = data
         }
-    }
+    }*/
+     @Published var data: UIImage?
+    
 
     init(urlString:String, completionHandler: @escaping (_ result: UIImage) -> Void) {
+        self.urlString = urlString
+        
+        if loadImageFromCache() {
+            print("Cache hit")
+            return
+        }
+        
+        
         guard let url = URL(string: urlString) else { return }
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data else { return }
             //TODO: move else where, not in main
             let image = UIImage(data: data) ?? UIImage()
             DispatchQueue.main.async {
-                self.data = data
+                self.data = image
                 completionHandler(image)
             }
         }
         task.resume()
 
+    }
+    
+    func loadImageFromCache() -> Bool {
+        guard let urlString = urlString else {
+            return false
+        }
+        
+        guard let cacheImage = imageCache.get(forKey: urlString) else {
+            return false
+        }
+        
+        data = cacheImage
+        return true
     }
 }
 
@@ -62,3 +88,22 @@ struct ImageView: View {
         }
     }
 }
+
+/*class ImageCache {
+    var cache = NSCache<NSString, UIImage>()
+    
+    func get(forKey: String) -> UIImage? {
+        return cache.object(forKey: NSString(string: forKey))
+    }
+    
+    func set(forKey: String, image: UIImage) {
+        cache.setObject(image, forKey: NSString(string: forKey))
+    }
+}
+
+extension ImageCache {
+    private static var imageCache = ImageCache()
+    static func getImageCache() -> ImageCache {
+        return imageCache
+    }
+}*/

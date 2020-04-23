@@ -15,7 +15,7 @@ class CocktailViewModel: ObservableObject, Identifiable, Hashable {
     let objectWillChange = PassthroughSubject<CocktailViewModel, Never>()
     
     let id = UUID()
-    var cocktailImage: ImageView?
+    var cocktailImage: UrlImageView?
     var cocktail = Items()
     var ingredients: String = ""
     
@@ -37,7 +37,8 @@ class CocktailViewModel: ObservableObject, Identifiable, Hashable {
     }
     
     init() {
-        self.cocktailImage = ImageView(withURL: "", height: 0) {_ in }
+        //self.cocktailImage = ImageView(withURL: "", height: 0) {_ in }
+        self.cocktailImage = UrlImageView(urlString: nil, height: 0, completionHandler: {_ in})
     }
     
     init(cocktail: Items) {
@@ -57,11 +58,21 @@ class CocktailViewModel: ObservableObject, Identifiable, Hashable {
     
     func loadPicture() {
         // Set the cocktail image
-        self.cocktailImage = ImageView(withURL: cocktail.imageUrl ?? "", height: (UIScreen.main.bounds.size.height * 0.55)) {result in
+        /*self.cocktailImage = ImageView(withURL: cocktail.imageUrl ?? "", height: (UIScreen.main.bounds.size.height * 0.55)) {result in
             //self.isImageLoaded = true
             // The background color of each card is computed from the cocktail image.
             self.setBackgroundColor(image: result)
-        }
+        }*/
+        
+        self.cocktailImage = UrlImageView(urlString: cocktail.imageUrl, height: UIScreen.main.bounds.size.height * 0.55, completionHandler: {result in
+            if (result != nil) {
+                self.backgroundColor = result!
+            } else {
+                self.setBackgroundColor(image: self.cocktailImage?.urlImageModel.image ?? UIImage(imageLiteralResourceName: "Image"))
+            }
+        })
+        //self.backgroundColor = cocktailImage?.urlImageModel.backgroundColor ?? UIColor.red
+        //self.setBackgroundColor(image: (cocktailImage?.urlImageModel.image)!)
     }
     
     /**

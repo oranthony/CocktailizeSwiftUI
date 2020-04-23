@@ -23,6 +23,8 @@ struct CocktailView: View {
     
     @ObservedObject var model: CocktailViewModel
     
+    @State private var showModal = false
+    
     var body: some View {
         GeometryReader { geo in
             ZStack() {
@@ -75,6 +77,10 @@ struct CocktailView: View {
                 
                 /*ImageView(withURL: self.model.cocktail.imageUrl ?? "", height: geo.size.height * 0.72)
                     .position(x: geo.size.width * 0.72, y: geo.size.height * 0.19)*/
+                /*self.model.cocktailImage
+                    .position(x: geo.size.width * 0.72, y: geo.size.height * 0.19)*/
+                
+                //UrlImageView(urlString: self.model.cocktail.imageUrl, height: UIScreen.main.bounds.size.height * 0.55)
                 self.model.cocktailImage
                     .position(x: geo.size.width * 0.72, y: geo.size.height * 0.19)
                     
@@ -82,6 +88,10 @@ struct CocktailView: View {
                     .position(x: geo.size.width * 0.70, y: geo.size.height * 0.1)
                     .frame(height: UIScreen.main.bounds.size.height * 0.45)*/
                     
+            }.onTapGesture {
+                 self.showModal.toggle()
+            }.sheet(isPresented: self.$showModal) {
+                CocktailDetailView(showModal: self.$showModal, model: CocktailDetailViewModel(cocktail: self.model.cocktail, ingredients: self.model.ingredients, backgroundColor: self.model.backgroundColor/*, cocktailImage: self.model.cocktailImage!.image*/))
             }
         }
         //.environmentObject(ShimmerConfig())
