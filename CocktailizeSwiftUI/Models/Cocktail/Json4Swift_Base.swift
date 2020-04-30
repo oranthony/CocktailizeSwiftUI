@@ -37,5 +37,28 @@ struct Json4Swift_Base : Codable {
         items = try values.decodeIfPresent([Items].self, forKey: .items)
         totalCount = try values.decodeIfPresent(Int.self, forKey: .totalCount)
     }
+    
+    //// ! move to some place else ! like an extension ?
+    // ! add optionnal return type and rename Items to cocktail
+    func getCocktailByName(name: String) -> Items? {
+        for (_, element) in (items?.enumerated())! {
+            if (element.name == name) {
+                return element
+            }
+        }
+        return nil
+    }
+    
+    func findCocktail(cocktail: Items) -> Int? {
+        if let actualItems = items {
+            for (index, value) in actualItems.enumerated() {
+                if (value.name == cocktail.name) {
+                    return index
+                }
+            }
+            return nil
+        }
+        return nil
+    }
 
 }

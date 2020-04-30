@@ -59,7 +59,7 @@ struct SearchView: View {
                     }
                 //}
                 //.padding(.bottom, geo.size.height / 20)
-                .navigationBarBackButtonHidden(true) // TODO: remove ?
+                //.navigationBarBackButtonHidden(true) // TODO: remove ?
             }
         }
     }

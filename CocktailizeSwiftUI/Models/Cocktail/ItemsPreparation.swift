@@ -24,7 +24,7 @@ struct ItemsPreparation : Codable {
     }
     
     init() {
-        index = 0
+        index = 1
         words = [Words()]
     }
     

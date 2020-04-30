@@ -12,28 +12,45 @@ import Combine
 
 class CocktailResultViewModel: ObservableObject {
     //@EnvironmentObject var userData: UserData
-    let objectWillChange = PassthroughSubject<CocktailResultViewModel, Never>()
+    //let objectWillChange = PassthroughSubject<CocktailResultViewModel, Never>()
     
     //@ObservedObject var fetcher = CocktailFetcher()
     
     //TODO: Remove ?
-    var cocktails = Json4Swift_Base() {
+    /*var cocktails = Json4Swift_Base() {
         didSet {
             objectWillChange.send(self)
         }
-    }
+    }*/
     
-    var items = [CocktailViewModel]()
+    //var items: [CocktailViewModel]
+    var items: [Items]
     
     init() {
-        
+        print("enter empty init")
+        self.items = [Items()]
     }
     
-    init(items: [Items]) {
+    init(items: [Items] /*cocktailViewModelList: [CocktailViewModel]*/) {
         //print("allo")
         //getCocktails()
-        self.items = items.map(CocktailViewModel.init)
+        print("ab")
+        //var item = [Items(), Items()]
+        //self.loadModel(items: item)
+        //self.items = item.map(CocktailViewModel.init)
+        //self.items = items.map(CocktailViewModel.init)
+        
+        //self.items = [Items()]
+        self.items = items
     }
+    
+    /*func loadModel(items: [Items]) {
+        let item = items.map(CocktailViewModel.init)
+        if (self.items != item) {
+            print("change value")
+            self.items = item
+        }
+    }*/
     
     /*private func getCocktails() {
         //Create param for the query

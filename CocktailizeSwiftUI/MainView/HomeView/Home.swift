@@ -9,6 +9,17 @@
 import SwiftUI
 
 struct CocktailizeHome: View {
+    @EnvironmentObject var userData: UserData
+    @ObservedObject var model = HomeViewModel()
+    
+    /**
+     Retreive and store favorites cocktails in userData environment object
+     */
+    func getFavoritesCocktails() {
+        userData.favoritesCocktails = model.loadFavoritesCocktails()
+        print("favorites cocktails")
+        print(userData.favoritesCocktails)
+    }
     
     var body: some View {
         NavigationView {
@@ -40,7 +51,7 @@ struct CocktailizeHome: View {
                             
                             Spacer()
                             
-                            CocktailPath()
+                            //CocktailPath()
                                 
                             
                             NavigationLink(destination: MainView()) {
@@ -63,6 +74,9 @@ struct CocktailizeHome: View {
                 .navigationBarHidden(true)
                .navigationBarTitle(Text("Home"))
                .edgesIgnoringSafeArea([.top, .bottom])
+        }
+        .onAppear() {
+            self.getFavoritesCocktails()
         }
     }
 }

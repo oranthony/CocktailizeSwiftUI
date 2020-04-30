@@ -57,7 +57,7 @@ struct Items : Codable, Hashable, Identifiable {
     init() {
         key = ""
         name = ""
-        imageUrl = ""
+        imageUrl = "https://upload.wikimedia.org/wikipedia/commons/5/59/Empty.png"
         backgroundUrl = ""
         preparationSteps = nil
         ingredients = nil

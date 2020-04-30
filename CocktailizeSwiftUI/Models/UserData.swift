@@ -23,10 +23,12 @@ final class UserData: ObservableObject {
      */
     @Published var recentIngredients = ["Rum", "Vodka", "Lime"]
     
-    @Published var isShowSearch = true
+    //@Published var isShowSearch = true
     
-    @Published var cocktailColorDictionnary = ["": Color.gray]
+    //@Published var cocktailColorDictionnary = ["": Color.gray]
     
-    @Published var cocktailList = Json4Swift_Base()
+    @Published var cocktailList: [Items]?
+    
+    @Published var favoritesCocktails = Json4Swift_Base()
 }
 
