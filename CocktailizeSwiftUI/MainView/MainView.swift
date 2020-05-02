@@ -89,23 +89,18 @@ struct MainView: View {
                                                 self.isResultHidden.toggle()
                                             }
                                         }
-                                        /*self.model.hideResult()
-                                         self.model.showSearch()*/
                                     } else {
                                         self.isSearchBarFocused = false
                                     }
                                 }, onCommit: {
                                     self.userData.selectedIngredients.append(self.ingredientSearchBarContent)
                                     self.isSearchBarFocused = false
-                                    print(self.ingredientSearchBarContent)
-                                    print(self.userData.selectedIngredients)
                                 })
                                 
-                                Spacer()
-                                
+                                //Spacer()
                                 
                                 Image(systemName: "multiply.circle.fill")
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(self.fontColor)
                                     .opacity(self.ingredientSearchBarContent == "" ? 0 : 1)
                                     .onTapGesture { self.ingredientSearchBarContent = "" }
                             }
@@ -117,7 +112,6 @@ struct MainView: View {
                                 .padding(.top, -10)
                                 .padding(.leading, 30.0)
                                 .shadow(radius: 4)
-                            
                             
                             if (self.isSearchBarFocused) {
                                 Text("Cancel")

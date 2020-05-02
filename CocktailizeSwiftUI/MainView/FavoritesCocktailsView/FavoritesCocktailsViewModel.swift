@@ -13,12 +13,12 @@ import SwiftUI
 class FavoritesCocktailsViewModel: ObservableObject {
     let objectWillChange = PassthroughSubject<FavoritesCocktailsViewModel, Never>()
     
-    @Published var isCocktailListEmpty = true
-    @Published var favoriteCocktails: Json4Swift_Base?
+    //@Published var isCocktailListEmpty = true
+    //@Published var favoriteCocktails: Json4Swift_Base?
     
     init() {
         // Retreive stored favorites
-        let defaults = UserDefaults.standard
+        /*let defaults = UserDefaults.standard
         if let savedCocktails = defaults.object(forKey: "favoriteCocktailArray") as? Data {
             let decoder = JSONDecoder()
             if let loadedCocktails = try? decoder.decode(Json4Swift_Base.self, from: savedCocktails) {
@@ -35,11 +35,8 @@ class FavoritesCocktailsViewModel: ObservableObject {
             }
         } else {
             isCocktailListEmpty = true
-        }
+        }*/
         
     }
     
-    func loadData() {
-        
-    }
 }

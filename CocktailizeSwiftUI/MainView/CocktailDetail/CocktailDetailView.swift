@@ -18,9 +18,9 @@ struct CocktailDetailView: View {
     func addCocktailToFavorites() {
         self.model.addCocktailToFavorites()
         if ((userData.favoritesCocktails.findCocktail(cocktail: model.cocktail)) != nil)  {
-            userData.favoritesCocktails.items?.remove(at: (userData.favoritesCocktails.items?.firstIndex(of: model.cocktail))!)
+                userData.favoritesCocktails.items?.remove(at: (userData.favoritesCocktails.items?.firstIndex(of: model.cocktail))!)
             } else {
-            userData.favoritesCocktails.items?.append(model.cocktail)
+                userData.favoritesCocktails.items?.append(model.cocktail)
         }
     }
     
