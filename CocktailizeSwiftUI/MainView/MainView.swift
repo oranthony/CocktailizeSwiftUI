@@ -43,13 +43,13 @@ struct MainView: View {
         //isSearchHidden = true
         // Call model load function with param from env object and then display SearchView
         model.loadCocktail(ingredients: userData.selectedIngredients) {result in
-            //DispatchQueue.main.async {
-            //if (result != nil) {
-            self.userData.cocktailList = result
-            withAnimation {
-                self.isResultHidden.toggle()
+            DispatchQueue.main.async {
+                //if (result != nil) {
+                self.userData.cocktailList = result
+                withAnimation {
+                    self.isResultHidden.toggle()
+                }
             }
-            //}
             //}
         }
     }
@@ -162,6 +162,15 @@ struct MainView: View {
                     }
                 }
                 .padding(.vertical, 20.0)
+                
+                if (!self.isResultHidden && (self.userData.cocktailList?.isEmpty ?? true)) {
+                    
+                    Text("No cocktails found")
+                        .position(x: UIScreen.main.bounds.size.width / 2, y: (UIScreen.main.bounds.size.height / 2) - 50)
+                        .multilineTextAlignment(.center)
+                        .frame(alignment: .center)
+                }
+                
             }
             .hiddenNavigationBarStyle()
         }
