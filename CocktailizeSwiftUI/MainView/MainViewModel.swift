@@ -43,6 +43,7 @@ class MainViewModel: ObservableObject {
                 }
                 
                 queryParam = queryParam.replacingOccurrences(of: " ", with: "%20")
+                queryParam = queryParam.convertedToSlug() ?? queryParam
                 
                 // Load cocktail from db with ingredients as param
                 guard let url = URL(string: "https://cocktailflow.com/ajax/search/more/cocktail?count=100&phrase=" + queryParam) else {
@@ -96,5 +97,22 @@ class Webservice {
             }
         }.resume()
         
+    }
+}
+
+extension String {
+    private static let slugSafeCharacters = CharacterSet(charactersIn: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-")
+
+    public func convertedToSlug() -> String? {
+        if let latin = self.applyingTransform(StringTransform("Any-Latin; Latin-ASCII; Lower;"), reverse: false) {
+            let urlComponents = latin.components(separatedBy: String.slugSafeCharacters.inverted)
+            let result = urlComponents.filter { $0 != "" }.joined(separator: "-")
+
+            if result.count > 0 {
+                return result
+            }
+        }
+
+        return nil
     }
 }

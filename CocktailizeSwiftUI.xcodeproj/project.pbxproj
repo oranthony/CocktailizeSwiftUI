@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -31,7 +31,6 @@
 		646740F1243F1C2A005FAA26 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646740F0243F1C2A005FAA26 /* UserData.swift */; };
 		646740F3243F8D44005FAA26 /* CocktailResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646740F2243F8D44005FAA26 /* CocktailResult.swift */; };
 		646740F5243F9914005FAA26 /* CocktailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646740F4243F9914005FAA26 /* CocktailView.swift */; };
-		64BC50CD244CE02B00C929BC /* ShimmerView in Frameworks */ = {isa = PBXBuildFile; productRef = 64BC50CC244CE02B00C929BC /* ShimmerView */; };
 		64BC50CF244CEFB500C929BC /* CocktailPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BC50CE244CEFB500C929BC /* CocktailPath.swift */; };
 		64BC50D3244CF93700C929BC /* FAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BC50D1244CF93700C929BC /* FAView.swift */; };
 		64BC50D4244CF93700C929BC /* FAShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BC50D2244CF93700C929BC /* FAShimmerView.swift */; };
@@ -103,7 +102,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				66824C0502CC0953D6832D93 /* Pods_CocktailizeSwiftUI.framework in Frameworks */,
-				64BC50CD244CE02B00C929BC /* ShimmerView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,7 +329,6 @@
 			);
 			name = CocktailizeSwiftUI;
 			packageProductDependencies = (
-				64BC50CC244CE02B00C929BC /* ShimmerView */,
 			);
 			productName = CocktailizeSwiftUI;
 			productReference = 645E221D243498A20053804C /* CocktailizeSwiftUI.app */;
@@ -362,7 +359,6 @@
 			);
 			mainGroup = 645E2214243498A20053804C;
 			packageReferences = (
-				64BC50CB244CE02B00C929BC /* XCRemoteSwiftPackageReference "ShimmerView" */,
 			);
 			productRefGroup = 645E221E243498A20053804C /* Products */;
 			projectDirPath = "";
@@ -664,25 +660,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		64BC50CB244CE02B00C929BC /* XCRemoteSwiftPackageReference "ShimmerView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Vidhyadharan-Mohanram/ShimmerView";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		64BC50CC244CE02B00C929BC /* ShimmerView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 64BC50CB244CE02B00C929BC /* XCRemoteSwiftPackageReference "ShimmerView" */;
-			productName = ShimmerView;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		645E2224243498A20053804C /* CocktailizeSwiftUI.xcdatamodeld */ = {
