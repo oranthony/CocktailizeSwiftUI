@@ -14,12 +14,8 @@ class MainViewModel: ObservableObject {
     var lastSearchIngredients = [""]
     var items: [Items]?
     
-    //var cocktailTest = CocktailResultViewModel()
-    
-    //@Published var isSearchHidden = false
-    
     init() {
-        print("MainModelView init")
+        
     }
     
     func loadCocktail(ingredients: [String], completion: @escaping ([Items]) -> ()) {
@@ -29,9 +25,7 @@ class MainViewModel: ObservableObject {
             if (!ingredients.isEmpty && ingredients != self.lastSearchIngredients) {
                 //Save new ingredients search
                 self.lastSearchIngredients = ingredients
-                
-                print(ingredients)
-                
+  
                 //Create param for the query
                 var queryParam = ""
                 
@@ -52,27 +46,16 @@ class MainViewModel: ObservableObject {
                 
                 // Store result in class property
                 Webservice().loadTopHeadlines(url: url) { items in
-                    print("webservice called")
-                    //self.cocktails.items = items
-                    
-                    /*if let items = items {
-                     self.items = items.map(CocktailViewModel.init)
-                     }*/
-                    
                     if let items = items {
                         self.items = items
                         completion(items)
                     }
                 }
             } else {
-                //self.showResult()
                 completion([])
             }
         }
-        
     }
-    
-
 }
 
 
@@ -89,9 +72,6 @@ class Webservice {
             let response = try? JSONDecoder().decode(Json4Swift_Base.self, from: data)
             if let response = response {
                 DispatchQueue.main.async {
-                    print("request completed")
-                    //print(response)
-                    //self.userData.cocktailList = response
                     completion(response.items)
                 }
             }

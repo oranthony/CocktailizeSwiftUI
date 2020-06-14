@@ -94,6 +94,7 @@ struct MainView: View {
                                     }
                                 }, onCommit: {
                                     self.userData.selectedIngredients.append(self.ingredientSearchBarContent)
+                                    self.ingredientSearchBarContent = ""
                                     self.isSearchBarFocused = false
                                 })
                                 
