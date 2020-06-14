@@ -8,6 +8,9 @@
 
 import SwiftUI
 
+/**
+ Home view displaying the illustration and start button leading to MainView.
+ */
 struct CocktailizeHome: View {
     @EnvironmentObject var userData: UserData
     @ObservedObject var model = HomeViewModel()
@@ -50,9 +53,6 @@ struct CocktailizeHome: View {
                                 .foregroundColor(Color(red:0.5, green:0.5, blue:0.5, opacity:1))
                             
                             Spacer()
-                            
-                            //CocktailPath()
-                                
                             
                             NavigationLink(destination: MainView()) {
                                 Text("Start")

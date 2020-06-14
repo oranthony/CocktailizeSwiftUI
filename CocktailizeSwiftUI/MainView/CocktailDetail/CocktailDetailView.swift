@@ -8,6 +8,9 @@
 
 import SwiftUI
 
+/**
+ CocktailDetailView display detailed information about the cocktail.
+ */
 struct CocktailDetailView: View {
     @EnvironmentObject var userData: UserData
     @Binding var showModal: Bool

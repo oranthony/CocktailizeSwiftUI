@@ -21,6 +21,14 @@ extension EnvironmentValues {
 }
 
 
+/**
+ MainView is parent of :
+    - SearchView
+    - ResultView
+    - FavoritesCocktailView
+ The main view is basically a search bar, then depending on the app state (user input search, display result, display favorites) it displays the right child view.
+ The REST API call to retreive cocktails infotmation is made in MainViewModel.
+ */
 struct MainView: View {
     @EnvironmentObject var userData: UserData
     @State private var ingredientSearchBarContent = ""
@@ -38,9 +46,7 @@ struct MainView: View {
     func startSearchFunction() {
         withAnimation {
             isSearchHidden.toggle()
-            //isResultHidden.toggle()
         }
-        //isSearchHidden = true
         // Call model load function with param from env object and then display SearchView
         model.loadCocktail(ingredients: userData.selectedIngredients) {result in
             DispatchQueue.main.async {
@@ -55,7 +61,6 @@ struct MainView: View {
     }
     
     var body: some View {
-        //startSearchFunction()
         NavigationView {
             //TODO: Remove geometry reader ?
             GeometryReader { geo in
@@ -72,9 +77,6 @@ struct MainView: View {
                                 .multilineTextAlignment(.leading)
                                 .padding(.leading, 30.0)
                                 .transition(.asymmetric(insertion: AnyTransition.move(edge: .top).combined(with: .opacity), removal: AnyTransition.move(edge: .top).combined(with: .opacity)))
-                            /*.offset(y: self.isSearchHidden ? -100 : 0).animation(.easeIn(duration: 0.5)).onDisappear {
-                             self.isSearchBarHidden = true
-                             }*/
                         }
                         
                         HStack {
@@ -98,14 +100,11 @@ struct MainView: View {
                                     self.isSearchBarFocused = false
                                 })
                                 
-                                //Spacer()
-                                
                                 Image(systemName: "multiply.circle.fill")
                                     .foregroundColor(self.fontColor)
                                     .opacity(self.ingredientSearchBarContent == "" ? 0 : 1)
                                     .onTapGesture { self.ingredientSearchBarContent = "" }
                             }
-                                
                             .padding()
                             .frame(maxWidth: .infinity, maxHeight: 35, alignment: .leading)
                             .background(
@@ -140,38 +139,22 @@ struct MainView: View {
                             SearchView().transition(.move(edge: .leading))
                         }
                         
-                        /*if (!self.isResultHidden && !(self.model.items?.isEmpty ?? true)) {
-                         //CocktailResult(model: CocktailResultViewModel(items: self.model.items)).transition(.move(edge: .trailing))
-                         /*LazyView {*/ CocktailResult(model: CocktailResultViewModel(items: self.model.items ?? [])).transition(.move(edge: .trailing)) /*}*/
-                         .onDisappear(perform: {
-                         print("disappear")
-                         })
-                         
-                         }*/
-                        
                         if (!self.isResultHidden && !(self.userData.cocktailList?.isEmpty ?? true)) {
-                            //CocktailResult(model: CocktailResultViewModel(items: self.model.items)).transition(.move(edge: .trailing))
-                            /*LazyView {*/ CocktailResult(model: CocktailResultViewModel(items: self.userData.cocktailList ?? [])).transition(.move(edge: .trailing)) /*}*/
+                            CocktailResult(model: CocktailResultViewModel(items: self.userData.cocktailList ?? [])).transition(.move(edge: .trailing))
                                 .onDisappear(perform: {
                                     print("disappear")
                                 })
-                            
                         }
-                        
-                        
-                        //}/*.offset(x: !self.isSearchHidden ? 0 : -UIScreen.main.bounds.width ).animation(.easeIn(duration: 0.5))*/
                     }
                 }
                 .padding(.vertical, 20.0)
                 
                 if (!self.isResultHidden && (self.userData.cocktailList?.isEmpty ?? true)) {
-                    
                     Text("No cocktails found")
                         .position(x: UIScreen.main.bounds.size.width / 2, y: (UIScreen.main.bounds.size.height / 2) - 50)
                         .multilineTextAlignment(.center)
                         .frame(alignment: .center)
                 }
-                
             }
             .hiddenNavigationBarStyle()
         }
@@ -191,15 +174,6 @@ struct MainView: View {
         keyWindow?.endEditing(true)
     }
 }
-
-/*extension AnyTransition {
- static var customTransition: AnyTransition {
- let transition = AnyTransition.move(edge: .top)
- .combined(with: .scale(scale: 0.2, anchor: .topTrailing))
- .combined(with: .opacity)
- return transition
- }
- }*/
 
 struct CocktailSearch_Previews: PreviewProvider {
     static var previews: some View {

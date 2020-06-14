@@ -9,19 +9,16 @@
 import SwiftUI
 import ShimmerView
 
+/**
+ Display the cocktail information whithin a nice card.
+ Meant to be used in CocktailResult view.
+ Click on a CocktailView bring the CocktailDetailView to display more detailed information.
+ */
 struct CocktailView: View {
     @EnvironmentObject var userData: UserData
-    let fontColor = Color(red:0.44, green: 0.44, blue: 0.44, opacity: 1.0)
-    let receipe =
-        "-azza \n"
-            + "-dfvdf \n"
-            + "-dferferf \n"
-    
     @State private var showModal = false
-    
     @ObservedObject var model: CocktailViewModel
-    
-    //@Binding var isTouched: Bool
+    let fontColor = Color(red:0.44, green: 0.44, blue: 0.44, opacity: 1.0)
     
     var body: some View {
         GeometryReader { geo in
@@ -54,7 +51,6 @@ struct CocktailView: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                             .foregroundColor(self.fontColor)
                             .background(Color(self.model.backgroundColor))
-                        //.onAppear(perform: {self.model.loadPicture()})
                     }
                     .background(Color.white)
                     .frame(maxWidth: geo.size.width * 0.91, maxHeight: geo.size.height * 0.95, alignment: .bottomLeading)

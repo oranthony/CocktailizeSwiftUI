@@ -40,26 +40,20 @@ struct SearchView: View {
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding([.leading, .trailing], 30)
             } else {
-                //NavigationLink(destination: CocktailResult()) {
-                    Text("Search")
-                        .fontWeight(.semibold)
-                        .font(.title)
-                        .frame(minWidth: 0, maxWidth: .infinity)
-                        .padding(.vertical, 9.0)
-                        .foregroundColor(Color(red:0.44, green:0.44, blue:0.44, opacity:1))
-                        .background(Color(red:0.49, green:0.87, blue:0.94, opacity:0.99))
-                        .cornerRadius(40)
-                        .shadow(radius: 2)
-                        .padding(.horizontal, 50.0)
-                        .onTapGesture {
-                            //self.fetcher.load()
-                            //self.userData.isShowSearch = false
-                            // Call parent view to trigger cocktails search
-                            self.startSearchFunction?()
-                    }
-                //}
-                //.padding(.bottom, geo.size.height / 20)
-                //.navigationBarBackButtonHidden(true) // TODO: remove ?
+                Text("Search")
+                    .fontWeight(.semibold)
+                    .font(.title)
+                    .frame(minWidth: 0, maxWidth: .infinity)
+                    .padding(.vertical, 9.0)
+                    .foregroundColor(Color(red:0.44, green:0.44, blue:0.44, opacity:1))
+                    .background(Color(red:0.49, green:0.87, blue:0.94, opacity:0.99))
+                    .cornerRadius(40)
+                    .shadow(radius: 2)
+                    .padding(.horizontal, 50.0)
+                    .onTapGesture {
+                        // Call parent view to trigger cocktails search
+                        self.startSearchFunction?()
+                }
             }
         }
     }

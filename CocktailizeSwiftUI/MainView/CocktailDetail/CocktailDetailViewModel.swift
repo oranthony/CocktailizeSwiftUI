@@ -149,9 +149,6 @@ class CocktailDetailViewModel: ObservableObject, Identifiable {
                     userdefaults.set(encoded, forKey: "favoriteCocktailArray")
                 }
             }
-            
-            /*let redFavoriteIcon = UIImage(named: "Image-6")!
-            favoriteButton.setImage(redFavoriteIcon, for: .normal)*/
             self.isCocktailFavorite = true
         }
 

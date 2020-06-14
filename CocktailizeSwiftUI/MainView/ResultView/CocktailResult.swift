@@ -16,54 +16,38 @@ struct LazyView<CocktailResult: View>: View {
     }
 }
 
+/**
+ ResultView display the cocktails found from the API in an horizontal scroll list.
+ Each element of the list is a CocktailView.
+ */
 struct CocktailResult: View {
     //@Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var userData: UserData
-    //@State private var ingredientSearchBarContent = ""
-    //@ObservedObject var fetcher: CocktailFetcher
-    //@Environment(\.imageCache) var cache: ImageCache
-    
-    /*let fontColor = Color(red:0.44, green: 0.44, blue: 0.44, opacity: 1.0)
-    let cocktailRes = ["Cocktail 1", "Cocktail 2"]*/
-    
     @ObservedObject var model: CocktailResultViewModel
-    //@State private var showModal = false
-    
     
     var body: some View {
         GeometryReader { geo in
             VStack {
                 Spacer()
-        
-                //if !(self.model.items.isEmpty) {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(alignment: .bottom, spacing: 0) {
-                        
-                            //TODO : SAFE PBROBELM
-                            ForEach(self.model.items, id: \.self) { ingredient in
-                                CocktailView(model: CocktailViewModel(cocktail: ingredient))
-                                    .frame(width: geo.size.width * 0.90, height: geo.size.height * 0.99, alignment: .bottom)
-                                    .shadow(radius: 5)
-                                    
-                            }
-                            .offset(x: 30, y: 0)
-    
-                        }
-                        
-                    }
-                //}
-            }
 
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(alignment: .bottom, spacing: 0) {
+                        //TODO : SAFE PBROBELM
+                        ForEach(self.model.items, id: \.self) { ingredient in
+                            CocktailView(model: CocktailViewModel(cocktail: ingredient))
+                                .frame(width: geo.size.width * 0.90, height: geo.size.height * 0.99, alignment: .bottom)
+                                .shadow(radius: 5)
+                        }
+                        .offset(x: 30, y: 0)
+                    }
+                }
+            }
         }
     }
 }
 
 struct CocktailResult_Previews: PreviewProvider {
     static var previews: some View {
-        //let fetcher = CocktailFetcher()
-        var item = Items(name: "dfedf")
-        var item2 = Items(name: "dfedf")
-        
         return ForEach(["iPhone SE", "iPhone XS Max"], id: \.self) { deviceName in
             CocktailResult(model: CocktailResultViewModel())
                 .previewDevice(PreviewDevice(rawValue: deviceName))
