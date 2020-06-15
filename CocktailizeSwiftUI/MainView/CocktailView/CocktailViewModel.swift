@@ -21,8 +21,6 @@ class CocktailViewModel: ObservableObject, Identifiable, Hashable {
     
     @Published var imageLoaded = false
     
-    //@Published var isImageLoaded = false
-    
     @Published var backgroundColor = UIColor(red: 0.7882, green: 0.7882, blue: 0.7882, alpha: 1.0) {
         didSet {
             objectWillChange.send(self)
@@ -34,9 +32,6 @@ class CocktailViewModel: ObservableObject, Identifiable, Hashable {
     }
     
     //TODO: deprecated, to change
-    /*var hashValue: Int {
-        return id.hashValue ^ cocktail.hashValue
-    }*/
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }

@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import ShimmerView
+//import ShimmerView
 
 /**
  Display the cocktail information whithin a nice card.

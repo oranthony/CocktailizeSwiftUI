@@ -28,12 +28,12 @@ class UrlImageModel: ObservableObject {
         if loadImageFromCache(completionHandler: {result in
             completionHandler(result)
         }) {
-            print("Cache hit")
+            //print("Cache hit")
             //completionHandler(UIColor.purple)
             return
         }
         
-        print("Cache miss, loading from url")
+        //print("Cache miss, loading from url")
         loadImageFromUrl(completionHandler: {result in
             completionHandler(nil)
         })
