@@ -140,7 +140,6 @@
 				64667BC22445E9900085382E /* MainView */,
 				646740EF243F1BF4005FAA26 /* Models */,
 				645E223C2437AB790053804C /* Utils */,
-				645E223924351C770053804C /* Cocktailize-iOS */,
 				645E2220243498A20053804C /* AppDelegate.swift */,
 				645E2222243498A20053804C /* SceneDelegate.swift */,
 				645E2227243498A20053804C /* ContentView.swift */,
@@ -149,7 +148,6 @@
 				645E2231243498AB0053804C /* Info.plist */,
 				645E2224243498A20053804C /* CocktailizeSwiftUI.xcdatamodeld */,
 				645E222B243498AB0053804C /* Preview Content */,
-				645E22412438C6B30053804C /* IngredientRow.swift */,
 			);
 			path = CocktailizeSwiftUI;
 			sourceTree = "<group>";
@@ -160,13 +158,6 @@
 				645E222C243498AB0053804C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		645E223924351C770053804C /* Cocktailize-iOS */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Cocktailize-iOS";
 			sourceTree = "<group>";
 		};
 		645E223C2437AB790053804C /* Utils */ = {
@@ -191,6 +182,7 @@
 		64667BC22445E9900085382E /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				645E22412438C6B30053804C /* IngredientRow.swift */,
 				64CCEDC6245AD99800F0222D /* HomeView */,
 				64CCEDC124586A1B00F0222D /* FavoritesCocktailsView */,
 				64667BCA24461AB80085382E /* CocktailDetail */,

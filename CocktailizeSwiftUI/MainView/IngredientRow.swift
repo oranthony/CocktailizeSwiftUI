@@ -46,7 +46,6 @@ struct IngredientRow: View {
 
 struct CategoryItem: View {
     @EnvironmentObject var userData: UserData
-    
     var isRecentIngredientType: Bool
     var ingredient: String
     
@@ -66,7 +65,7 @@ struct CategoryItem: View {
                     Text("Add")
                     .font(.system(size: 12))
                     .fontWeight(.light)
-                        .foregroundColor(.blue)
+                    .foregroundColor(.blue)
                     .multilineTextAlignment(.trailing)
                     .onTapGesture {
                         withAnimation{

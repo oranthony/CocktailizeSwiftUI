@@ -27,7 +27,6 @@ struct FavoritesCocktailsView: View {
                         .resizable()
                         .edgesIgnoringSafeArea(.all)
                     
-                    
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(alignment: .bottom, spacing: 0) {
                             

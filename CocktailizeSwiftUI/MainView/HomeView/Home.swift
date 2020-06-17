@@ -20,8 +20,6 @@ struct CocktailizeHome: View {
      */
     func getFavoritesCocktails() {
         userData.favoritesCocktails = model.loadFavoritesCocktails()
-        print("favorites cocktails")
-        print(userData.favoritesCocktails)
     }
     
     var body: some View {

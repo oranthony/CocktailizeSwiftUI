@@ -30,5 +30,8 @@ final class UserData: ObservableObject {
     @Published var cocktailList: [Items]?
     
     @Published var favoritesCocktails = Json4Swift_Base()
+    
+    let clearModeFontColor = UIColor(red:0.44, green: 0.44, blue: 0.44, alpha: 1.0)
+    let darkModeFontColor = UIColor.white
 }
 
