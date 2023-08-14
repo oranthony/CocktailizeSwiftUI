@@ -9,3 +9,7 @@ Behance : https://www.behance.net/gallery/80682211/Cocktailize-UX-Study-Case-iOS
 Cocktailize helps you find the cocktails you can make with the ingredients you have. You can access the recipe of the cocktails and save your favorites cocktails.
 
 ![](img/demo.jpg)
+
+
+## Demo
+![image alt text](./doc/Cocktailize-1.mp4)

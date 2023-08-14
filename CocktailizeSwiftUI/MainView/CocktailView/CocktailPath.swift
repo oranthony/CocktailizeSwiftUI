@@ -55,7 +55,7 @@ struct CocktailPath: View {
             )
         }
         .onAppear {
-            print("reverse bool")
+            //print("reverse bool")
             withAnimation(Animation.default.speed(0.30).delay(0).repeatForever(autoreverses: false)){
                 self.show.toggle()
             }

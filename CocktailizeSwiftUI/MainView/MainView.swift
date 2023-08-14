@@ -47,13 +47,22 @@ struct MainView: View {
         withAnimation {
             isSearchHidden.toggle()
         }
+        print(userData.selectedIngredients);
         // Call model load function with param from env object and then display SearchView
         model.loadCocktail(ingredients: userData.selectedIngredients) {result in
             DispatchQueue.main.async {
+                //print(result);
+                print("result");
                 //if (result != nil) {
-                self.userData.cocktailList = result
-                withAnimation {
-                    self.isResultHidden.toggle()
+                if (result.count == 0) {
+                    withAnimation {
+                        self.isResultHidden.toggle()
+                    }
+                } else {
+                    self.userData.cocktailList = result
+                    withAnimation {
+                        self.isResultHidden.toggle()
+                    }
                 }
             }
             //}

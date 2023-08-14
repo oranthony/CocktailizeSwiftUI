@@ -62,7 +62,7 @@ struct CocktailizeHome: View {
                                     .background(Color(red:0.49, green:0.87, blue:0.94, opacity:0.99))
                                     .cornerRadius(40)
                                     .shadow(radius: 2)
-                                    .padding(.horizontal, 50.0)
+                                    .padding(.horizontal, 90.0)
                             }
                             .padding(.bottom, geo.size.height / 20)
                             .navigationBarBackButtonHidden(true) // TODO: remove ?

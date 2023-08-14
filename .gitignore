@@ -5,3 +5,8 @@ Pods/Pods.xcodeproj/xcuserdata/anthony.xcuserdatad/xcschemes/xcschememanagement.
 CocktailizeSwiftUI.xcodeproj/*
 CocktailizeSwiftUI.xcworkspace/*
 .DS_Store
+
+# CocoaPods
+Podfile.lock
+Pods
+*.xcworkspace

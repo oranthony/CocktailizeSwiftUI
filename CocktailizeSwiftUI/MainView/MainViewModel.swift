@@ -19,30 +19,45 @@ class MainViewModel: ObservableObject {
     }
     
     func loadCocktail(ingredients: [String], completion: @escaping ([Items]) -> ()) {
-        //self.hideSearch()
-        DispatchQueue.global(qos: .userInitiated).async {
-            // Check is user actually entered ingredients and if those are different from last search
-            if (!ingredients.isEmpty && ingredients != self.lastSearchIngredients) {
-                //Save new ingredients search
+        
+        if (!ingredients.isEmpty && ingredients != self.lastSearchIngredients) {
+            // Check if user actually entered ingredients and if those are different from last search
+            
+            DispatchQueue.global(qos: .userInitiated).async {
+                // Save new ingredients search
                 self.lastSearchIngredients = ingredients
-  
-                //Create param for the query
+                
+                // Create param for the query
                 var queryParam = ""
                 
+                // Transform array of ingredients into a string. Each ingredient separated by a space
                 for (i, element) in ingredients.enumerated(){
                     queryParam.append(element)
                     if i != ingredients.count - 1 {
-                        queryParam.append("%20")
+                        queryParam.append(" ")
                     }
                 }
                 
-                queryParam = queryParam.replacingOccurrences(of: " ", with: "%20")
-                queryParam = queryParam.convertedToSlug() ?? queryParam
+                //queryParam = queryParam.replacingOccurrences(of: " ", with: "%20")
+                //queryParam = queryParam.convertedToSlug() ?? queryParam
+                
+                // Building the url
+                var uc = URLComponents()
+                uc.scheme = "https"
+                uc.host = "cocktailflow.com"
+                uc.path = "/ajax/search/more/cocktail"
+                uc.queryItems = [
+                    URLQueryItem(name: "count", value: "100"),
+                    URLQueryItem(name: "phrase", value: queryParam),
+                    
+                ]
                 
                 // Load cocktail from db with ingredients as param
-                guard let url = URL(string: "https://cocktailflow.com/ajax/search/more/cocktail?count=100&phrase=" + queryParam) else {
+                guard let url = URL(string: uc.url!.absoluteString) else {
                     fatalError("URL is not correct!")
                 }
+                
+                print("url :", url);
                 
                 // Store result in class property
                 Webservice().loadTopHeadlines(url: url) { items in
@@ -51,11 +66,13 @@ class MainViewModel: ObservableObject {
                         completion(items)
                     }
                 }
-            } else {
-                completion([])
             }
+        } else {
+            print("else");
+            completion([])
         }
     }
+    
 }
 
 
