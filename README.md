@@ -12,4 +12,4 @@ Cocktailize helps you find the cocktails you can make with the ingredients you h
 
 
 ## Demo
-![image alt text](./doc/Cocktailize-1.mp4)
+![image alt text](./Doc/Cocktailize-1.mp4)
