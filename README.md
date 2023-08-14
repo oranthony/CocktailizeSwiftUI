@@ -13,9 +13,11 @@ Cocktailize helps you find the cocktails you can make with the ingredients you h
 
 ## Demo
 Just type your ingredients and the cocktails you can make appear.
+
 https://github.com/oranthony/CocktailizeSwiftUI/assets/6161861/aa33d4ed-6dd8-4398-ac79-3fe9524113b6
 
 
 The search is optimized: when the API return cocktails that are already present in the current list, the corresponding tiles are not re-rendered. That way the expansive taks of finding the dominant color doesn't have to be re-triggered.
+
 https://github.com/oranthony/CocktailizeSwiftUI/assets/6161861/fa599acf-a82d-4b4c-b51d-7686790ff7c4
 
